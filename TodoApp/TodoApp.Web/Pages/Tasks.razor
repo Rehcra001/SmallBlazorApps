@@ -1,0 +1,15 @@
+﻿@page "/Tasks"
+
+<div class="container">
+    <h1 class="text-center">Tasks</h1>
+
+    <NewTaskComponent PersonList="@_people" OnAddNewTask="AddTask"></NewTaskComponent>
+    <hr />
+    <br />
+    <h3>Task List</h3>
+    @foreach (PersonModel person in _people)
+    {
+        <TaskListComponent Person="person" Tasks="GetPersonTasks(person)" OnUpdateTask="@((task) => UpdateTask((TaskModel)task))"/>
+    }
+</div>
+

@@ -1,0 +1,50 @@
+﻿@using TodoApp.Web.Services.Contracts
+
+@if (Tasks.Count > 0)
+{
+    <div class="card mb-4">
+        <div class="card-header" style="font-weight:bolder; font-size: 24px">
+            @Person.Name
+        </div>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>% Complete</th>
+                    <th>Completed By</th>
+                    <th>Completed On</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (TaskModel task in Tasks)
+                {
+                    <TaskComponent Task="@task" OnUpdateTask="@((task) => UpdateTask((TaskModel)task))" />
+                }
+            </tbody>
+        </table>
+
+    </div>
+}
+
+@code {
+    [Parameter]
+    public required List<TaskModel> Tasks { get; set; }
+
+    [Parameter]
+    public required PersonModel Person { get; set; }
+
+    [Inject]
+    public required ITasksService TasksService { get; set; }
+
+
+    [Parameter]
+    public EventCallback OnUpdateTask { get; set; }
+
+    private async Task UpdateTask(TaskModel task)
+    {
+        await OnUpdateTask.InvokeAsync(task);
+    }
+}
+

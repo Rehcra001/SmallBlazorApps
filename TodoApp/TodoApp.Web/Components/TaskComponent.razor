@@ -1,0 +1,22 @@
+﻿@page "/task"
+
+<tr>
+    <td><InputText @bind-Value="@Task.Task" /></td>
+    <td><InputNumber TValue="Int32" @bind-Value="Task.PercentageComplete"/></td>
+    <td><InputDate @bind-Value="@Task.DateToBeCompleted" /></td>
+    <td><InputDate @bind-Value="@Task.DateCompleted" /></td>
+    <td><button type="button" @onclick="UpdateTask" class="btn btn-primary ">Update</button></td>
+</tr>       
+
+@code {
+    [Parameter]
+    public required TaskModel Task { get; set; }
+
+    [Parameter]
+    public EventCallback OnUpdateTask { get; set; }
+
+    private async Task UpdateTask()
+    {
+        await OnUpdateTask.InvokeAsync(Task);
+    }
+}

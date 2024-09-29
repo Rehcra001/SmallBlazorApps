@@ -1,0 +1,31 @@
+﻿@page "/people"
+
+<div class="container">
+    <h3>Add Person</h3>
+
+    <EditForm Model="@_newPerson" OnValidSubmit="InsertPerson">
+        <div class="input-group">
+            <InputText class="form-control" @bind-Value="_newPerson.Name" />
+            <button class="btn btn-primary ms-4" type="submit">Add Person</button>
+        </div>
+    </EditForm>
+
+    <hr />
+
+    <table class="table-bordered" >
+        <thead>
+            <tr style="font-weight: bold; text-decoration: underline; font-size: 24px;">
+                <td style="padding: 5px; text-align: center">People</td>
+            </tr>
+        </thead>
+        <tbody>            
+            @foreach (PersonModel person in _people)
+            {
+                <tr >
+                    <td style="padding: 5px">@person.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
